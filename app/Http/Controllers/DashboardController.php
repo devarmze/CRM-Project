@@ -40,7 +40,7 @@ class DashboardController extends Controller
                 ->get();
 
             $clienti_mensili = DB::table('clienti')
-                ->select(DB::raw("strftime('%Y-%m', created_at) as mese"), DB::raw('count(*) as totale'))
+                ->select(DB::raw("DATE_FORMAT(created_at, '%Y-%m') as mese"), DB::raw('count(*) as totale'))
                 ->where('created_at', '>=', now()->subMonths(6))
                 ->groupBy('mese')
                 ->orderBy('mese')
